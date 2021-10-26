@@ -1,0 +1,19 @@
+.app-footer{
+    height: 10vh;
+    background-color: $clr6;
+    box-shadow: 6px 8px 0 -6px rgb(121, 118, 118);
+    color: $clr1;
+    text-align: center;
+    padding: 4rem;
+    margin-top: 6rem;
+    border-top: 1px solid $clr4;
+}
+
+@media (max-width: $mobile-breakpoint) {
+    .app-footer {
+        p{
+            font-size:14px;
+        }
+    }
+}
+
