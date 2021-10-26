@@ -2,8 +2,8 @@ const initialState = {
     cityKey: '',
     error: '',
     darkMod: false,
-    //degree:'℃',
-    cities:[]
+    degree:null,
+    cities: []
 }
 
 export function weatherReducer(state = initialState, action) {
@@ -14,11 +14,8 @@ export function weatherReducer(state = initialState, action) {
             return { ...state, cities: action.cities }
         case 'SET_DARKMOD':
             return { ...state, darkMod: action.isDark }
-        /*case 'SET_DEGREE':
-            return {
-                ...state,
-                degree: action.degree
-            }**/
+        case 'SET_DEGREE':
+            return { ...state, degree: action.degree }
         case 'ERROR':
             return { ...state, error: action.msg }
         default:
