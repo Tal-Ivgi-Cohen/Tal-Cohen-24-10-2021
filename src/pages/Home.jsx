@@ -59,7 +59,7 @@ export const Home = () => {
     }
     const navigatorError = () => {
         try {
-            dispatch(setCity('215837'))
+            dispatch(setCity('215854'))
             dispatch(errorMsg('there was an error to get location'))
         } catch (err) {
             dispatch(errorMsg(err))

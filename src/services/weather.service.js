@@ -13,8 +13,11 @@ export const weatherService = {
 }
 
 const STORAGE_KEY = 'city'
-const API_KEY = '2zhLrtJ3HnKoU76cdKftLNoOs1zKddMt'
-//const API_KEY=''
+//שלי
+//const API_KEY = '2zhLrtJ3HnKoU76cdKftLNoOs1zKddMt'
+//פיקטיבי
+//const API_KEY='0lOiuGFXOPnlXrGVatvupDjjaGVRdvG2' 
+const API_KEY=''
 const URL ='http://dataservice.accuweather.com'
 const gCitys = []
 
