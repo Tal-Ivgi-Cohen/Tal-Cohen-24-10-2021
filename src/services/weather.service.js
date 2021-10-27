@@ -13,8 +13,8 @@ export const weatherService = {
 }
 
 const STORAGE_KEY = 'city'
-//const API_KEY = 'nMRNKLAG6oawVXJLmLpYKPMrzcLz4wmA'
-const API_KEY=''
+const API_KEY = '2zhLrtJ3HnKoU76cdKftLNoOs1zKddMt'
+//const API_KEY=''
 const URL ='http://dataservice.accuweather.com'
 const gCitys = []
 
@@ -49,6 +49,7 @@ function removeCity(cityId) {
 function loadCities() {
     try {
         const cities = storageService.loadFromStorage(STORAGE_KEY)||[]
+        console.log('cities in service',cities);
         return cities;
     } catch (err) {
         const msg = err
@@ -131,13 +132,4 @@ async function getLatLanCoor(lat, lon) {
         Promise.reject(msg);
     }
 
-}
-
-function _makeId(length = 5) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
 }

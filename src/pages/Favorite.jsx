@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react'
 import { weatherService } from '../services/weather.service.js'
 import { errorMsg, setCity } from '../store/weather.action.js';
 import { useDispatch, useSelector } from 'react-redux'
-import { FavoritList } from '../cmps/FavoritList'
+import { FavoriteList } from '../cmps/FavoriteList'
 import { MsgModal } from '../cmps/MsgModal'
 
 export const Favorite = () => {
@@ -10,13 +10,19 @@ export const Favorite = () => {
     const [favoritCities, setFavoritCities] = useState('')
     const dispatch = useDispatch()
 
-    useEffect(async () => {
+    useEffect(() => {
         try {
-            const cities = await weatherService.loadCities()
-            setFavoritCities(cities)
+            const loadFavCities = async () => {
+                const favCities = await weatherService.loadCities()
+                setFavoritCities(favCities)               
+            }
+            loadFavCities()
         } catch (err) {
             dispatch(errorMsg(err))
         }
+        return () => {
+        }
+        // eslint-disable-next-line
     }, [error])
 
     const isDarkMode = () => {
@@ -44,10 +50,10 @@ export const Favorite = () => {
     }
     return (
         <div>
-            <section className='main-layout'>
+            <section className='main-container'>
                 <div className={`favorit-page ${isDarkMode()} flex column`}>
                     {favoritCities &&
-                        <FavoritList
+                        <FavoriteList
                             favoritCities={favoritCities}
                             onDeleteCity={onDeleteCity}
                             onSetCity={onSetCity}

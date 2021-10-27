@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const CitySearch = ({ onSearch, onGetCityForecast }) => {
     const [cityInput, setCity] = useState('')
     const [cities, setCities] = useState(null)
-    let cityKey = ''
+    let cityKey
 
-    useEffect(async () => {
-        const optionalCities = await onSearch(cityInput)
-        setCities(optionalCities)
+    useEffect(() => {
+        const search = async () => {
+            const cities = await onSearch(cityInput)
+            setCities(cities)
+            return;
+        }
+        search()
+        return () => {
+        }
+        // eslint-disable-next-line
     }, [cityInput])
 
     const onSetCity = async (ev) => {

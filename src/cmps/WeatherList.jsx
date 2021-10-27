@@ -1,5 +1,4 @@
 import { Card } from '@material-ui/core'
-import React from 'react'
 import { WeatherPreview } from './WeatherPreview.jsx'
 
 export const WeatherList = ({ forecast, degree, isDarkMode }) => {

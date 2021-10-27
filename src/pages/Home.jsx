@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CitySearch } from '../cmps/CitySearch';
 import { WeatherList } from '../cmps/WeatherList'
 import { MsgModal } from '../cmps/MsgModal'
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 export const Home = () => {
     const { cityKey, darkMod, degree, error } = useSelector(state => state.weatherModule)
     const [forecast, setForecast] = useState('')
@@ -67,7 +70,8 @@ export const Home = () => {
     }
     const onSearch = async (searchTerm) => {
         try {
-            return await weatherService.searchCityAutoComplete(searchTerm)
+            const search= await weatherService.searchCityAutoComplete(searchTerm)
+            return search
         } catch (err) {
             dispatch(errorMsg(err))
         }
@@ -126,15 +130,13 @@ export const Home = () => {
                 <CitySearch onSearch={onSearch} onGetCityForecast={onGetCityForecast} />
                 {cityName && <h1>{cityName}</h1>}
                 {currentForecast && <span>{currentForecast.WeatherText}</span>}
-               {/*} <span><img src={process.env.PUBLIC_URL + `/images/${currentForecast.WeatherIcon}.png`} alt="current condition icon" /></span>*/}
                 {forecast && <span className="current-temp">{getTemp()}{degree}</span>}
                 {forecast && <WeatherList forecast={forecast}
                     isDarkMode={isDarkMode} degree={degree} darkMod={darkMod} />}
-                {/* {console.log('isFavorit', isFavorit())} */}
                 {isFavorit() ? <button className="btn-remove-from-favorit"
-                    onClick={onDeleteCity}>delete city from favorits</button>
+                    onClick={onDeleteCity}><DeleteIcon /></button>
                     : <button className="btn-add-to-favorit"
-                        onClick={() => onAddToFavorits()}>add to favorit cities</button>}
+                        onClick={() => onAddToFavorits()}> <FavoriteIcon /></button>}
             </div>
             {error && <MsgModal msg={error} onCloseModal={onCloseModal} />}
         </section>

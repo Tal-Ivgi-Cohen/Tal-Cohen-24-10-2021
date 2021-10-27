@@ -1,0 +1,25 @@
+//setup
+@import './setup/variables.scss';
+@import './setup/functions.scss';
+@import './setup/mixins.scss';
+
+//base
+@import './basics/helpers.scss';
+@import './basics/layout.scss';
+@import './basics/base.scss';
+@import './basics/buttons.scss';
+
+//components
+@import './cmps/app-header.scss';
+@import './cmps/city-search.scss';
+@import './cmps/weather-list.scss';
+@import './cmps/weather-preview.scss';
+@import './cmps/favorit-list.scss';
+@import './cmps/favorit-preview.scss';
+@import './cmps/msg-modal.scss';
+@import './cmps/loader.scss';
+
+//views
+@import './views/weather-app.scss';
+@import './views/forecast-page.scss';
+@import './views/favorit-page.scss';

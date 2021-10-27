@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import DeleteIcon from '@material-ui/icons/Delete';
 
-export function FavoritPreview({ favoritCity, onDeleteCity, onSetCity, isDarkMode, degree }) {
+export function FavoritePreview({ favoritCity, onDeleteCity, onSetCity, isDarkMode, degree }) {
 
     const [temp, setTemp] = useState('')
     const [unit, setUnit] = useState('')
@@ -9,6 +10,7 @@ export function FavoritPreview({ favoritCity, onDeleteCity, onSetCity, isDarkMod
     useEffect(() => {
         setTemp(getTemp())
         setUnit(getUnit())
+        // eslint-disable-next-line
     }, [degree])
 
     const previewClicked = () => {
@@ -43,7 +45,7 @@ export function FavoritPreview({ favoritCity, onDeleteCity, onSetCity, isDarkMod
                             src={process.env.PUBLIC_URL + `/images/${favoritCity.cityCurrentCondition[0].WeatherIcon}.png`}
                             alt="current condition icon" />
                     </span>
-                    <button className="delete-btn" onClick={(ev) => removeCity(ev)}>remove city</button>
+                    <button className="delete-btn" onClick={(ev) => removeCity(ev)}><DeleteIcon /></button>
                 </div>
             </Link>
         </div>

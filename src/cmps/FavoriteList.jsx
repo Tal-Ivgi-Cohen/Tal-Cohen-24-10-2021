@@ -1,14 +1,15 @@
-import React from 'react'
 import { Card } from '@material-ui/core'
-import { FavoritPreview } from './FavoritPreview.jsx'
+import { FavoritePreview } from './FavoritePreview.jsx'
+import { Loader } from './Loader.jsx'
 
-export const FavoritList = ({ favoritCities, onDeleteCity, onSetCity, isDarkMode, degree, darkMod }) => {
-    if (!favoritCities || favoritCities.length === 0) return <div>There is no favorit cities</div>
+export const FavoriteList = ({ favoritCities, onDeleteCity, onSetCity, isDarkMode, degree, darkMod }) => {
+    console.log('favoritCities',favoritCities);
+    if (!favoritCities || favoritCities.length === 0) return <Loader />;
     return (
         <div className='favorit-list flex align-center justify-center'>
             {favoritCities.map(favoritCity => {
                 return <Card key={favoritCity._id} variant="outlined">
-                    < FavoritPreview favoritCity={favoritCity}
+                    < FavoritePreview favoritCity={favoritCity}
                         onDeleteCity={onDeleteCity} onSetCity={onSetCity}
                         isDarkMode={isDarkMode} degree={degree} darkMod={darkMod} />
                 </Card>

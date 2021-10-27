@@ -1,4 +1,4 @@
-import React from "react";
+import CloseIcon from '@material-ui/icons/Close';
 
 export const MsgModal = ({ msg, onCloseModal }) => {
 
@@ -8,7 +8,7 @@ export const MsgModal = ({ msg, onCloseModal }) => {
                 {msg}
                 <br/>
                 <button type="close-modal-button" onClick={onCloseModal}>
-                    Close
+                   <CloseIcon />
                 </button>
             </section>
         </div>

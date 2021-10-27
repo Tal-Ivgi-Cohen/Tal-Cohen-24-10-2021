@@ -1,6 +1,4 @@
-import React from 'react'
-
-export function WeatherPreview({ day, degree, isDarkMode }) {
+export const WeatherPreview = ({ day, degree, isDarkMode }) => {
 
     const getTemp = (min, max) => {
         const avgTemp = '' + (min + max) / 2
@@ -9,8 +7,8 @@ export function WeatherPreview({ day, degree, isDarkMode }) {
     const getDate = () => {
         const year = day.Date.substr(0, 4)
         const month = day.Date.substr(5, 2)
-        const dateDey = day.Date.substr(8, 2)
-        const date = `${dateDey}-${month}-${year}`
+        const dateDay = day.Date.substr(8, 2)
+        const date = `${dateDay}/${month}/${year}`
         return date
     }
 
@@ -25,11 +23,11 @@ export function WeatherPreview({ day, degree, isDarkMode }) {
             </div>
             <div className="flex column align-center justify-center">
                 {day.Day.IconPhrase}
-               {/*} <img src={process.env.PUBLIC_URL + `/images/${day.Day.Icon}.png`} alt="day icon" />*/}
+                {/*} <img src={process.env.PUBLIC_URL + `/images/${day.Day.Icon}.png`} alt="day icon" />*/}
             </div>
             <div className="flex column align-center justify-center">
                 {day.Night.IconPhrase}
-              {/*}  <img src={process.env.PUBLIC_URL + `/images/${day.Night.Icon}.png`} alt="night icon" />*/}
+                {/*}  <img src={process.env.PUBLIC_URL + `/images/${day.Night.Icon}.png`} alt="night icon" />*/}
             </div>
         </div>
     )
