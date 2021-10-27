@@ -1,0 +1,11 @@
+.weather-preview-card {
+    .weather-preview {
+        padding: 10px;
+        height: 200px;
+
+        @media (max-width: $narrow-breakpoint) {
+            height: 200px;
+            font-size: 11px;
+        }
+    }
+}

@@ -1,4 +1,6 @@
-export const Modal = ({ msg, onCloseModal }) => {
+import React from "react";
+
+export const MsgModal = ({ msg, onCloseModal }) => {
 
     return (
         <div className="msg-modal">

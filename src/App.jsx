@@ -1,8 +1,8 @@
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { routes } from './routes.js';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import './styles/styles.scss';
+import { Header } from './cmps/Header.jsx';
+import { Footer } from './cmps/Footer.jsx';
+import './assets/styles.scss';
 
 export const App = () => {
   return (

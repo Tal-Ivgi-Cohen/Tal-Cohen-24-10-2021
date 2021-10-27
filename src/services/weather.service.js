@@ -9,13 +9,14 @@ export const weatherService = {
     searchCityAutoComplete,
     getCityCurrentCondition,
     get5DayForeCast,
-    getLatLanCoord,
+    getLatLanCoor
 }
 
 const STORAGE_KEY = 'city'
-const API_KEY = 'ihZXkNFX7bmJkGgBSsc3iSA5YjBGKvy0'
+//const API_KEY = 'nMRNKLAG6oawVXJLmLpYKPMrzcLz4wmA'
+const API_KEY=''
+const URL ='http://dataservice.accuweather.com'
 const gCitys = []
-
 
 async function saveCity(cityKey, cityName) {
     try {
@@ -34,7 +35,6 @@ async function saveCity(cityKey, cityName) {
         return Promise.reject(msg)
     }
 }
-
 function removeCity(cityId) {
     try {
         const idx = gCitys.findIndex(city => city._id === cityId)
@@ -46,7 +46,6 @@ function removeCity(cityId) {
         throw new Error(msg)
     }
 }
-
 function loadCities() {
     try {
         const cities = storageService.loadFromStorage(STORAGE_KEY)||[]
@@ -58,7 +57,7 @@ function loadCities() {
 }
 async function searchCityAutoComplete(searchTerm) {
     try {
-        let response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${searchTerm}`)
+        let response = await fetch(`${URL}/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${searchTerm}`)
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
@@ -72,7 +71,7 @@ async function searchCityAutoComplete(searchTerm) {
 }
 async function searchCityByCityKey(cityKey) {
     try {
-        let response = await fetch(`http://dataservice.accuweather.com/locations/v1/${cityKey}?apikey=${API_KEY}`)
+        let response = await fetch(`${URL}/locations/v1/${cityKey}?apikey=${API_KEY}`)
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
@@ -87,7 +86,7 @@ async function searchCityByCityKey(cityKey) {
 
 async function getCityCurrentCondition(cityKey) {
     try {
-        let response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${API_KEY}&details=false`)
+        let response = await fetch(`${URL}/currentconditions/v1/${cityKey}?apikey=${API_KEY}&details=false`)
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
@@ -101,8 +100,11 @@ async function getCityCurrentCondition(cityKey) {
 }
 
 async function get5DayForeCast(cityKey, isC) {
+    const metric = () => {
+        return isC === '℃' ? true : false
+    }
     try {
-        let response = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${API_KEY}}`)
+        let response = await fetch(`${URL}/forecasts/v1/daily/5day/${cityKey}?apikey=${API_KEY}&metric=${metric()}`)
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
@@ -115,9 +117,9 @@ async function get5DayForeCast(cityKey, isC) {
     }
 }
 
-async function getLatLanCoord(lat, lon) {
+async function getLatLanCoor(lat, lon) {
     try {
-        const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${lon}`)
+        const response = await fetch(`${URL}/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${lon}`)
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
             throw new Error(message);
@@ -128,4 +130,14 @@ async function getLatLanCoord(lat, lon) {
         const msg = (err.message)
         Promise.reject(msg);
     }
+
+}
+
+function _makeId(length = 5) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
 }

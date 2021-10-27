@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
+import { weatherService } from '../services/weather.service.js'
+import { errorMsg, setCity } from '../store/weather.action.js';
 import { useDispatch, useSelector } from 'react-redux'
-import { errorMsg, setCity } from '../store/weather.action.js'
-import { CitySearch } from '../components/CitySearch.jsx';
-import { Weather } from './Weather.jsx'
-import { weatherService } from '../services/weather.service.js';
-import { Modal } from '../components/Modal'
-
+import { CitySearch } from '../cmps/CitySearch';
+import { WeatherList } from '../cmps/WeatherList'
+import { MsgModal } from '../cmps/MsgModal'
 export const Home = () => {
     const { cityKey, darkMod, degree, error } = useSelector(state => state.weatherModule)
     const [forecast, setForecast] = useState('')
@@ -25,38 +24,39 @@ export const Home = () => {
                 dispatch(errorMsg(err))
             }
         }
+        // eslint-disable-next-line
+    }, [])
+
+    useEffect(() => {
+        try {
+            const loadCities = async () => {
+                const favCities = await weatherService.loadCities()
+                setFavorits(favCities)
+            }
+            loadCities()
+        } catch (err) {
+            dispatch(errorMsg(err))
+        }
         return () => {
         }
         // eslint-disable-next-line
     }, [])
 
-    useEffect(() => {
-        const getFavouriteCities = async () => {
-            const favoritCities = await weatherService.loadCities()
-            setFavorits(favoritCities)
-        }
-        getFavouriteCities();
-        return () => {
-        }
-        // eslint-disable-next-line
-    }, []);
-
     const success = async (pos) => {
         try {
             const lat = pos.coords.latitude
             const lon = pos.coords.longitude
-            const city = await weatherService.getLatLanCoord(lat, lon)
+            const city = await weatherService.getLatLanCoor(lat, lon)
             dispatch(setCity(city.cityKey))
             setcityName(city.LocalizedName)
             await onGetCityForecast(city.Key)
         } catch (err) {
-           // console.log(err);
-           dispatch(errorMsg(err))
+            dispatch(errorMsg(err))
         }
     }
     const navigatorError = () => {
         try {
-            dispatch(setCity('215854'))
+            dispatch(setCity('215837'))
             dispatch(errorMsg('there was an error to get location'))
         } catch (err) {
             dispatch(errorMsg(err))
@@ -65,7 +65,6 @@ export const Home = () => {
     const isDarkMode = () => {
         return darkMod ? 'dark' : ''
     }
-
     const onSearch = async (searchTerm) => {
         try {
             return await weatherService.searchCityAutoComplete(searchTerm)
@@ -86,7 +85,13 @@ export const Home = () => {
             dispatch(errorMsg(err))
         }
     }
-
+    const getTemp = () => {
+        if (degree === '℃') {
+            return currentForecast.Temperature.Metric.Value
+        } else {
+            return currentForecast.Temperature.Imperial.Value
+        }
+    }
     const onAddToFavorits = () => {
         try {
             weatherService.saveCity(cityKey, cityName)
@@ -113,29 +118,25 @@ export const Home = () => {
     const onCloseModal = () => {
         dispatch(errorMsg(''))
     }
+
     return (
-        <section>
-            {/*} <CitySearch onSearch={onSearch} onGetCityForecast={onGetCityForecast} />
-            <Weather />*/}
+        <section className="main-container">
+            <div className={`forecast-page ${isDarkMode()} flex column justify-center align-center`}>
 
-
-            <section className="main-layout">
-                <div className={`forecast-page ${isDarkMode()} flex column justify-center align-center`}>
-
-                    <CitySearch onSearch={onSearch} onGetCityForecast={onGetCityForecast} />
-                    {cityName && <h1>{cityName}</h1>}
-                    {currentForecast && <span>{currentForecast.WeatherText}</span>}
-                    {/*}  <span><img src={process.env.PUBLIC_URL + `/images/${currentForecast.WeatherIcon}.png`} alt="current condition icon" /></span>*/}
-                    {/*{forecast && <span className="current-temp">{getTemp()}{degree}</span>}*/}
-                    {forecast && <Weather forecast={forecast}
-                        isDarkMode={isDarkMode} degree={degree} darkMod={darkMod} />}
-                    {isFavorit() ? <button className="btn-remove-from-favorit"
-                        onClick={onDeleteCity}>delete city from favorits</button>
-                        : <button className="btn-add-to-favorit"
-                            onClick={() => onAddToFavorits()}>add to favorit cities</button>}
-                </div>
-                {error && <Modal msg={error} onCloseModal={onCloseModal} />}
-            </section>
+                <CitySearch onSearch={onSearch} onGetCityForecast={onGetCityForecast} />
+                {cityName && <h1>{cityName}</h1>}
+                {currentForecast && <span>{currentForecast.WeatherText}</span>}
+               {/*} <span><img src={process.env.PUBLIC_URL + `/images/${currentForecast.WeatherIcon}.png`} alt="current condition icon" /></span>*/}
+                {forecast && <span className="current-temp">{getTemp()}{degree}</span>}
+                {forecast && <WeatherList forecast={forecast}
+                    isDarkMode={isDarkMode} degree={degree} darkMod={darkMod} />}
+                {/* {console.log('isFavorit', isFavorit())} */}
+                {isFavorit() ? <button className="btn-remove-from-favorit"
+                    onClick={onDeleteCity}>delete city from favorits</button>
+                    : <button className="btn-add-to-favorit"
+                        onClick={() => onAddToFavorits()}>add to favorit cities</button>}
+            </div>
+            {error && <MsgModal msg={error} onCloseModal={onCloseModal} />}
         </section>
     )
 }
