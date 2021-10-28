@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Tal-Cohen-24-10-2021/static/css/main.ae92279e.chunk.css",
+    "main.js": "/Tal-Cohen-24-10-2021/static/js/main.b74b61a3.chunk.js",
+    "main.js.map": "/Tal-Cohen-24-10-2021/static/js/main.b74b61a3.chunk.js.map",
+    "runtime-main.js": "/Tal-Cohen-24-10-2021/static/js/runtime-main.c422fb68.js",
+    "runtime-main.js.map": "/Tal-Cohen-24-10-2021/static/js/runtime-main.c422fb68.js.map",
+    "static/js/2.8b52a1eb.chunk.js": "/Tal-Cohen-24-10-2021/static/js/2.8b52a1eb.chunk.js",
+    "static/js/2.8b52a1eb.chunk.js.map": "/Tal-Cohen-24-10-2021/static/js/2.8b52a1eb.chunk.js.map",
+    "static/js/3.e76a8025.chunk.js": "/Tal-Cohen-24-10-2021/static/js/3.e76a8025.chunk.js",
+    "static/js/3.e76a8025.chunk.js.map": "/Tal-Cohen-24-10-2021/static/js/3.e76a8025.chunk.js.map",
+    "index.html": "/Tal-Cohen-24-10-2021/index.html",
+    "static/css/main.ae92279e.chunk.css.map": "/Tal-Cohen-24-10-2021/static/css/main.ae92279e.chunk.css.map",
+    "static/js/2.8b52a1eb.chunk.js.LICENSE.txt": "/Tal-Cohen-24-10-2021/static/js/2.8b52a1eb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c422fb68.js",
+    "static/js/2.8b52a1eb.chunk.js",
+    "static/css/main.ae92279e.chunk.css",
+    "static/js/main.b74b61a3.chunk.js"
+  ]
+}
