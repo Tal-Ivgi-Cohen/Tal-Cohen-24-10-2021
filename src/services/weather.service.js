@@ -14,7 +14,7 @@ export const weatherService = {
 
 const STORAGE_KEY = 'city'
 const API_KEY = 'ZmyFKscWMr8SuxmDpLK2xGRB0nbLbeZ9'
-const URL ='http://dataservice.accuweather.com'
+const URL ='https://dataservice.accuweather.com'
 const gCitys = []
 
 async function saveCity(cityKey, cityName) {

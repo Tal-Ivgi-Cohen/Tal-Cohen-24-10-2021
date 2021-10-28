@@ -3,7 +3,7 @@ import { Favorite } from './pages/Favorite.jsx';
 
 export const routes = [
     {
-        path: '/',
+        path: '/home',
         component: Home,
     },
     {
