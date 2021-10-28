@@ -1,6 +1,6 @@
 # Weather App wrote with React Hooks, Redux By Tal Cohen.
 
-## You can find my project in: "https://Tal-Ivgi-Cohen.github.io/Tal-Cohen-24-10-2021"
+## You can find my project in: "https://tal-ivgi-cohen.github.io/Tal-Cohen-24-10-2021/#/home"
 App use Accuweather API (50 requests per day).
 
 ## Technologies
