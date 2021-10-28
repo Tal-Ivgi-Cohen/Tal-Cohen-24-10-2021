@@ -26,7 +26,7 @@ export const Favorite = (props) => {
             weatherService.removeCity(cityId)
             const cities = weatherService.loadCities()
             setFavoritCities(cities)
-            dispatch(errorMsg('city removed'))
+            dispatch(errorMsg('City removed'))
             props.history.push('/');
         } catch (err) {
             dispatch(errorMsg(err))

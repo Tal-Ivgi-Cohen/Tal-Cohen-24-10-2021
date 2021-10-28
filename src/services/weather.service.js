@@ -5,15 +5,15 @@ export const weatherService = {
     saveCity,
     removeCity,
     loadCities,
-    searchCityByCityKey,
+    searchCityByKey,
     searchCityAutoComplete,
     getCityCurrCondition,
     get5DayForeCast,
-    getLatLanCoor
+    getPos
 }
 
 const STORAGE_KEY = 'city'
-const API_KEY = 'SfZuSFqbatGxdGS7k9omIrGhD7dy98rA'
+const API_KEY = 'lYAfQWrLtD3n0HgpJwtlsoVHmTqslTOs'
 const URL ='http://dataservice.accuweather.com'
 const gCitys = []
 
@@ -64,7 +64,7 @@ async function searchCityAutoComplete(searchTerm) {
        console.log(msg)
     }
 }
-async function searchCityByCityKey(cityKey) {
+async function searchCityByKey(cityKey) {
     try {
         let response = await fetch(`${URL}/locations/v1/${cityKey}?apikey=${API_KEY}`)
         const city = await response.json()
@@ -100,7 +100,7 @@ async function get5DayForeCast(cityKey, isC) {
     }
 }
 
-async function getLatLanCoor(lat, lon) {
+async function getPos(lat, lon) {
     try {
         const response = await fetch(`${URL}/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${lon}`)
         const city = await response.json()

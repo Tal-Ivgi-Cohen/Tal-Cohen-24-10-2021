@@ -8,11 +8,11 @@ import { MsgModal } from '../cmps/MsgModal'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export const Home = () => {
+export const Home = (props) => {
     const { cityKey, darkMod, degree, error } = useSelector(state => state.weatherModule)
     const [forecast, setForecast] = useState('')
     const [currentForecast, setCurrentForecast] = useState('')
-    const [favorits, setFavorits] = useState('')
+    const [favorites, setFavorites] = useState('')
     const [cityName, setcityName] = useState('')
     const dispatch = useDispatch()
     let cityId
@@ -34,7 +34,7 @@ export const Home = () => {
         try {
             const loadCities = async () => {
                 const favCities = await weatherService.loadCities()
-                setFavorits(favCities)
+                setFavorites(favCities)
             }
             loadCities()
         } catch (err) {
@@ -49,7 +49,7 @@ export const Home = () => {
         try {
             const lat = pos.coords.latitude
             const lon = pos.coords.longitude
-            const city = await weatherService.getLatLanCoor(lat, lon)
+            const city = await weatherService.getPos(lat, lon)
             dispatch(setCity(city.cityKey))
             setcityName(city.LocalizedName)
             await onGetCityForecast(city.Key)
@@ -79,7 +79,7 @@ export const Home = () => {
             dispatch(setCity(cityKey))
             const forecast5Day = await weatherService.get5DayForeCast(cityKey, degree)
             const currentForecast = await weatherService.getCityCurrCondition(cityKey)
-            const city = await weatherService.searchCityByCityKey(cityKey)
+            const city = await weatherService.searchCityByKey(cityKey)
             setCurrentForecast(currentForecast[0])
             setForecast(forecast5Day.DailyForecasts)
             setcityName(city.LocalizedName)
@@ -94,10 +94,10 @@ export const Home = () => {
             return currentForecast.Temperature.Imperial.Value
         }
     }
-    const onAddToFavorits = () => {
+    const onAddToFavorites = () => {
         try {
             weatherService.saveCity(cityKey, cityName)
-            dispatch(errorMsg('city added to favorits'))
+            dispatch(errorMsg('City added to favorites'))
         } catch (err) {
             dispatch(errorMsg(err))
         }
@@ -105,14 +105,16 @@ export const Home = () => {
     const onDeleteCity = () => {
         try {
             weatherService.removeCity(cityId)
-            dispatch(errorMsg('city removed'))
+            dispatch(errorMsg('City removed'))
+            props.history.push('/');
+
         } catch (err) {
             dispatch(errorMsg(err))
         }
     }
     const setIsFavorite = () => {
-        if (!favorits || favorits.length === 0) return false
-        return favorits.some(city => {
+        if (!favorites || favorites.length === 0) return false
+        return favorites.some(city => {
             cityId = city._id
             return city.cityKey === cityKey
         })
@@ -128,10 +130,10 @@ export const Home = () => {
                     <div>
                         <CitySearch onSearch={onSearch} onGetCityForecast={onGetCityForecast} />
                     </div>
-                    <div className="city-info">
+                    <div className="city-info flex column">
                         {cityName && <h1>{cityName}</h1>}
-                        {currentForecast && <span>{currentForecast.WeatherText}</span>}
-                        {forecast && <span className="current-temp">{getTemp()}{degree}</span>}
+                        {currentForecast && <div>{currentForecast.WeatherText}</div>}
+                        {forecast && <div className="current-temp">{getTemp()}{degree}</div>}
                     </div>
                     {forecast &&
                         <WeatherList forecast={forecast} degree={degree} darkMod={darkMod} />
@@ -139,7 +141,7 @@ export const Home = () => {
                     {setIsFavorite() ? <button className="remove-btn"
                         onClick={onDeleteCity}><DeleteIcon /></button>
                         : <button className="add-btn"
-                            onClick={() => onAddToFavorits()}> <FavoriteIcon /></button>}
+                            onClick={() => onAddToFavorites()}> <FavoriteIcon /></button>}
                 </div>
                 {error && <MsgModal msg={error} onCloseModal={onCloseModal} />}
             </div>

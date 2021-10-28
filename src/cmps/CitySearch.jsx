@@ -4,7 +4,6 @@ import SearchIcon from '@mui/icons-material/Search';
 export const CitySearch = ({ onSearch, onGetCityForecast }) => {
     const [cityInput, setCity] = useState('')
     const [cities, setCities] = useState(null)
-    let cityKey
 
     useEffect(() => {
         const search = async () => {
@@ -30,7 +29,6 @@ export const CitySearch = ({ onSearch, onGetCityForecast }) => {
                 value={cityInput} placeholder="Search city 🔍" />
             {cities && <datalist id="cities">
                 {cities.map((city) => {
-                    cityKey = city.key
                     return <option key={city.Key} value={city.LocalizedName} />
                 })}
             </datalist>}

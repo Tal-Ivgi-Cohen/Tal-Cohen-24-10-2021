@@ -1,5 +1,6 @@
 # Weather App wrote with React Hooks, Redux By Tal Cohen.
 
+## You can find my project in: "https://Tal-Ivgi-Cohen.github.io/Tal-Cohen-24-10-2021"
 App use Accuweather API (50 requests per day).
 
 ## Technologies
@@ -12,7 +13,7 @@ App use Accuweather API (50 requests per day).
 * Get weather by user geolocation 
 * Dark/Light theme
 * Add/remove city to favorites (save to local storage) 
-* Toggle celsius/fahrenheit (save to local storage) 
+* Toggle celsius/fahrenheit 
 * Success/error modals 
 
 ## Available Scripts
