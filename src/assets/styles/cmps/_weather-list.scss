@@ -1,13 +1,6 @@
-.wheather-list {
-    gap: 5px;
-    margin-bottom: 10px;
-    @media (max-width: $mobile-breakpoint){
-        flex-direction: column;
-    }
-    @media (max-width: $narrow-breakpoint){
-        font-size: 14px;
-    }
-    @media (max-width: $normal-breakpoint){
-        color: yellowgreen;
-    }
+.weather-list {
+    display: grid;
+    width: 100%;
+    gap: 0.625rem;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
 }

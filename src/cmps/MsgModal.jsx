@@ -1,5 +1,3 @@
-import CloseIcon from '@material-ui/icons/Close';
-
 export const MsgModal = ({ msg, onCloseModal }) => {
 
     return (
@@ -8,7 +6,7 @@ export const MsgModal = ({ msg, onCloseModal }) => {
                 {msg}
                 <br/>
                 <button type="close-modal-button" onClick={onCloseModal}>
-                   <CloseIcon />
+                    Close
                 </button>
             </section>
         </div>

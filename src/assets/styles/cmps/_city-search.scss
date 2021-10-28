@@ -1,11 +1,43 @@
-.city-search{
+.city-search {
+    display: flex;
     margin-bottom: 20px;
     padding: 5px;
-    input{
-        border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    input {
+        border: solid 1px $clr2;
+        width: 50vw;
+        height: 50px;
+        text-align: center;
     }
+    .btn-search {
+        background-color: $clr6;
+        margin-left: 10px;
+        margin-top: 1px;
+        height: 50px;
+        width: 40px;
+        &:hover {
+            color: $clr6;
+            background-color: $clr3;
+        }
+    }
+}
 
-    @media (max-width: $mobile-breakpoint){
-        margin-bottom: 15px;
+@media (max-width: $mobile-breakpoint) {
+    .city-search {
+        display: flex;
+        flex-direction: column;
+        justify-content:flex-start;
+        align-items: flex-start;
+        input {
+            width: 80vw;
+            height: 50px;
+        }
+        .btn-search {
+            margin-left: 0px;
+            width: 50vw;
+            height: 50px;
+            margin-left: 15vw;
+        }
     }
 }

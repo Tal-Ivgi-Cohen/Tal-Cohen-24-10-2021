@@ -7,7 +7,7 @@ import './assets/styles/styles.scss';
 export const App = () => {
   return (
     <Router>
-      <div className='weather-app'>
+      <div className='app'>
         <Header />
         <main>
           <Switch>

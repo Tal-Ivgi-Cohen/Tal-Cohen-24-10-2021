@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import SearchIcon from '@mui/icons-material/Search';
 
 export const CitySearch = ({ onSearch, onGetCityForecast }) => {
     const [cityInput, setCity] = useState('')
@@ -17,25 +18,23 @@ export const CitySearch = ({ onSearch, onGetCityForecast }) => {
         // eslint-disable-next-line
     }, [cityInput])
 
-    const onSetCity = async (ev) => {
+    const handleCity = async (ev) => {
         setCity(ev.target.value)
     }
     const getCityForecast = () => {
-        console.log('cities', cities);
         onGetCityForecast(cities[0].Key)
     }
     return (
-        <div className="city-search flex align-center justify-center">
-            <input type="text" list="cities" onChange={onSetCity} name="cityInput"
-                value={cityInput} placeholder="search city" />
+        <div className="city-search flex">
+            <input type="text" list="cities" onChange={handleCity} name="cityInput"
+                value={cityInput} placeholder="Search city 🔍" />
             {cities && <datalist id="cities">
                 {cities.map((city) => {
                     cityKey = city.key
                     return <option key={city.Key} value={city.LocalizedName} />
-                }
-                )}
+                })}
             </datalist>}
-            <button onClick={getCityForecast}>Search</button>
+            <button className="btn-search" onClick={getCityForecast}><SearchIcon /></button>
         </div>
     )
 }

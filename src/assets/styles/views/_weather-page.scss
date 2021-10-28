@@ -1,0 +1,26 @@
+.weather-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .city-info {
+
+        .current-temp {
+            margin-bottom: 15px;
+        }
+    }
+    .add-btn,
+    .remove-btn {
+        width: 200px;
+        height: 50px;
+        padding: 5px;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: $mobile-breakpoint) {
+    .weather-page {
+        justify-content:flex-start;
+        align-items: flex-start;
+    }
+}

@@ -1,6 +1,5 @@
 export const utilService = {
   makeId,
-  celsiusToFahrenheit
 }
 
 function makeId(length = 6) {
@@ -11,7 +10,3 @@ function makeId(length = 6) {
   }
   return txt;
 }
-
-export function celsiusToFahrenheit(num) {
-  return Math.floor((num * 9) / 5 + 32);
-};

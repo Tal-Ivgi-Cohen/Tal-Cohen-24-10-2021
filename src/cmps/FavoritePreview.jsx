@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export function FavoritePreview({ favoritCity, onDeleteCity, onSetCity, isDarkMode, degree }) {
-
+export const FavoritePreview =({ favoriteCity, onDeleteCity, onSetCity, degree })=> {
     const [temp, setTemp] = useState('')
     const [unit, setUnit] = useState('')
 
@@ -14,36 +13,34 @@ export function FavoritePreview({ favoritCity, onDeleteCity, onSetCity, isDarkMo
     }, [degree])
 
     const previewClicked = () => {
-        onSetCity(favoritCity.cityKey)
+        onSetCity(favoriteCity.cityKey)
     }
     const removeCity = (ev) => {
         ev.preventDefault()
-        onDeleteCity(favoritCity._id)
+        onDeleteCity(favoriteCity._id)
     }
     const getTemp = () => {
         if (degree === '℃') {
-            return favoritCity.cityCurrentCondition[0].Temperature.Metric.Value
+            return favoriteCity.cityCurrentCondition[0].Temperature.Metric.Value
         } else {
-            return favoritCity.cityCurrentCondition[0].Temperature.Imperial.Value
+            return favoriteCity.cityCurrentCondition[0].Temperature.Imperial.Value
         }
     }
     const getUnit = () => {
-        return degree === '℃' ? favoritCity.cityCurrentCondition[0].Temperature.Metric.Unit :
-            favoritCity.cityCurrentCondition[0].Temperature.Imperial.Unit
+        return degree === '℃' ? favoriteCity.cityCurrentCondition[0].Temperature.Metric.Unit :
+            favoriteCity.cityCurrentCondition[0].Temperature.Imperial.Unit
     }
     return (
-        <div className={`favorit-preview ${isDarkMode()} flex column align-center justify-center`} onClick={previewClicked}>
-            <Link to="/" className="favorit-preview-link">
-                <h1 className={`favorit-preview-h1 ${isDarkMode()}`}>{favoritCity.name}</h1>
+        <div className="fav-preview" onClick={previewClicked}>
+            <Link to="/" className="favPreview-link">
+                <h2>{favoriteCity.name}</h2>
                 <div className="favorit-preview-content flex column justify-center align-center">
-                    <span className={`favorit-preview-span ${isDarkMode()}`}>
+                    <span>
                         {temp && <span>{temp}</span>}{temp && <span>{unit}</span>}
                     </span>
-                    <span className={`favorit-preview-span ${isDarkMode()} flex column justify-center align-center`}>
-                        {favoritCity.cityCurrentCondition[0].WeatherText}
-                        <img
-                            src={process.env.PUBLIC_URL + `/images/${favoritCity.cityCurrentCondition[0].WeatherIcon}.png`}
-                            alt="current condition icon" />
+                    <span>
+                    <span className="feel-color">Feel in day: </span>  
+                        {favoriteCity.cityCurrentCondition[0].WeatherText}
                     </span>
                     <button className="delete-btn" onClick={(ev) => removeCity(ev)}><DeleteIcon /></button>
                 </div>

@@ -19,7 +19,7 @@ export const Home = () => {
 
     useEffect(() => {
         if (cityKey === '') {
-            navigator.geolocation.getCurrentPosition(success, navigatorError)
+            navigator.geolocation.getCurrentPosition(success, geoLocationError)
         } else {
             try {
                 onGetCityForecast(cityKey)
@@ -57,7 +57,7 @@ export const Home = () => {
             dispatch(errorMsg(err))
         }
     }
-    const navigatorError = () => {
+    const geoLocationError = () => {
         try {
             dispatch(setCity('215854'))
             dispatch(errorMsg('there was an error to get location'))
@@ -65,12 +65,10 @@ export const Home = () => {
             dispatch(errorMsg(err))
         }
     }
-    const isDarkMode = () => {
-        return darkMod ? 'dark' : ''
-    }
+
     const onSearch = async (searchTerm) => {
         try {
-            const search= await weatherService.searchCityAutoComplete(searchTerm)
+            const search = await weatherService.searchCityAutoComplete(searchTerm)
             return search
         } catch (err) {
             dispatch(errorMsg(err))
@@ -80,7 +78,7 @@ export const Home = () => {
         try {
             dispatch(setCity(cityKey))
             const forecast5Day = await weatherService.get5DayForeCast(cityKey, degree)
-            const currentForecast = await weatherService.getCityCurrentCondition(cityKey)
+            const currentForecast = await weatherService.getCityCurrCondition(cityKey)
             const city = await weatherService.searchCityByCityKey(cityKey)
             setCurrentForecast(currentForecast[0])
             setForecast(forecast5Day.DailyForecasts)
@@ -112,7 +110,7 @@ export const Home = () => {
             dispatch(errorMsg(err))
         }
     }
-    const isFavorit = () => {
+    const setIsFavorite = () => {
         if (!favorits || favorits.length === 0) return false
         return favorits.some(city => {
             cityId = city._id
@@ -124,21 +122,27 @@ export const Home = () => {
     }
 
     return (
-        <section className="main-container">
-            <div className={`forecast-page ${isDarkMode()} flex column justify-center align-center`}>
-
-                <CitySearch onSearch={onSearch} onGetCityForecast={onGetCityForecast} />
-                {cityName && <h1>{cityName}</h1>}
-                {currentForecast && <span>{currentForecast.WeatherText}</span>}
-                {forecast && <span className="current-temp">{getTemp()}{degree}</span>}
-                {forecast && <WeatherList forecast={forecast}
-                    isDarkMode={isDarkMode} degree={degree} darkMod={darkMod} />}
-                {isFavorit() ? <button className="btn-remove-from-favorit"
-                    onClick={onDeleteCity}><DeleteIcon /></button>
-                    : <button className="btn-add-to-favorit"
-                        onClick={() => onAddToFavorits()}> <FavoriteIcon /></button>}
+        <section>
+            <div className="main-container">
+                <div className={`weather-page flex column`}>
+                    <div>
+                        <CitySearch onSearch={onSearch} onGetCityForecast={onGetCityForecast} />
+                    </div>
+                    <div className="city-info">
+                        {cityName && <h1>{cityName}</h1>}
+                        {currentForecast && <span>{currentForecast.WeatherText}</span>}
+                        {forecast && <span className="current-temp">{getTemp()}{degree}</span>}
+                    </div>
+                    {forecast &&
+                        <WeatherList forecast={forecast} degree={degree} darkMod={darkMod} />
+                    }
+                    {setIsFavorite() ? <button className="remove-btn"
+                        onClick={onDeleteCity}><DeleteIcon /></button>
+                        : <button className="add-btn"
+                            onClick={() => onAddToFavorits()}> <FavoriteIcon /></button>}
+                </div>
+                {error && <MsgModal msg={error} onCloseModal={onCloseModal} />}
             </div>
-            {error && <MsgModal msg={error} onCloseModal={onCloseModal} />}
-        </section>
+        </section >
     )
 }

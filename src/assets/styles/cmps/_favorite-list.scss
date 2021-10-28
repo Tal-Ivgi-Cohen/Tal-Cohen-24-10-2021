@@ -1,0 +1,6 @@
+.fav-list{
+    display: grid;
+    width: 100%;
+    gap: 0.625rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}

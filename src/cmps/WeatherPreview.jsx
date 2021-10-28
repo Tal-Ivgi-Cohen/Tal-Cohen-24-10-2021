@@ -1,8 +1,13 @@
-export const WeatherPreview = ({ day, degree, isDarkMode }) => {
+export const WeatherPreview = ({ day, degree }) => {
 
     const getTemp = (min, max) => {
-        const avgTemp = '' + (min + max) / 2
-        return avgTemp.substr(0, 4)
+        if (degree === '℃') {
+            const avgTemp = '' + (min + max) / 2
+            return avgTemp.substr(0, 4)
+        } else {
+            const avgTemp = '' + (((min + max) / 2) * 9 / 5 + 32)
+            return avgTemp.substr(0, 4)
+        }
     }
     const getDate = () => {
         const year = day.Date.substr(0, 4)
@@ -13,21 +18,18 @@ export const WeatherPreview = ({ day, degree, isDarkMode }) => {
     }
 
     return (
-        <div className={`weather-preview ${isDarkMode()} flex column align-center justify-center`}>
+        <div className={`weather-preview flex column align-center justify-center`}>
             <span>{getDate()}</span>
-            <br />
             <div>
-                <span>
+                <span className="degree">
                     {getTemp(day.Temperature.Minimum.Value, day.Temperature.Maximum.Value)}</span>
-                <span>{degree}</span>
+                <span className="degree">{degree}</span>
+            </div>
+            <div className="fillflex column align-center justify-center">
+            <span className="feel-color">Feel in day: </span>  {day.Day.IconPhrase}
             </div>
             <div className="flex column align-center justify-center">
-                {day.Day.IconPhrase}
-                {/*} <img src={process.env.PUBLIC_URL + `/images/${day.Day.Icon}.png`} alt="day icon" />*/}
-            </div>
-            <div className="flex column align-center justify-center">
-                {day.Night.IconPhrase}
-                {/*}  <img src={process.env.PUBLIC_URL + `/images/${day.Night.Icon}.png`} alt="night icon" />*/}
+            <span className="feel-color">Feel in night:</span>{day.Night.IconPhrase}
             </div>
         </div>
     )

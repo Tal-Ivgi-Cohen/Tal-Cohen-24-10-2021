@@ -1,0 +1,15 @@
+.app-footer{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+@media (max-width: $mobile-breakpoint) {
+    .app-footer {
+        p{
+            font-size: 13px;
+        }     
+    }
+}
+
