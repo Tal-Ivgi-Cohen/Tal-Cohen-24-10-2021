@@ -2,7 +2,7 @@ import { Card } from '@material-ui/core'
 import { FavoritePreview } from './FavoritePreview.jsx'
 import { Loader } from './Loader.jsx'
 
-export const FavoriteList = ({ favoriteCities, onDeleteCity, onSetCity, isDarkMode, degree}) => {
+export const FavoriteList = ({ favoriteCities, onDeleteCity, onSetCity, degree }) => {
     if (!favoriteCities || favoriteCities.length === 0) return <Loader />;
     return (
         <div className='fav-list'>
@@ -10,7 +10,7 @@ export const FavoriteList = ({ favoriteCities, onDeleteCity, onSetCity, isDarkMo
                 return <Card key={favoriteCity._id} variant="outlined">
                     < FavoritePreview favoriteCity={favoriteCity}
                         onDeleteCity={onDeleteCity} onSetCity={onSetCity}
-                        isDarkMode={isDarkMode} degree={degree} />
+                        degree={degree} />
                 </Card>
             }
             )}
