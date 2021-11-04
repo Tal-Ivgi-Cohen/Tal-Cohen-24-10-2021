@@ -136,7 +136,7 @@ export const Home = (props) => {
                         {forecast && <div className="current-temp">{getTemp()}{degree}</div>}
                     </div>
                     {forecast &&
-                        <WeatherList forecast={forecast} degree={degree} darkMod={darkMod} />
+                        <WeatherList forecast={forecast} degree={degree} />
                     }
                     {setIsFavorite() ? <button className="remove-btn"
                         onClick={onDeleteCity}><DeleteIcon /></button>
